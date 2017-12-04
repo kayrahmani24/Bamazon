@@ -17,22 +17,24 @@ connect.connect(function (err) {
 });
 
 function selectAll() {
+  //Function to display all products
     connect.query("SELECT * FROM products", function(err, res) {
         if(err) throw err;
           for(var i = 0; i < res.length; i++) {
             console.log("Item ID: "+ res[i].item_id + " | Product: " + res[i].product_name + " | Price: $" + res[i].price);
-        console.log(res[i].price);
+        //console.log(res[i].price);
         }
          prompt();
     });
 }
 function prompt(){
+
   inquirer.prompt([
     {
       type: "list",
       message: "Please enter the ID of the product you would like to purchase?",
       name: "id",
-      choices: ['1','2','3','4','5','6','7','8','9','10']
+      choices: ['1','2','3','4','5','6','7','8','9','10','11']
 
     },
     {
@@ -68,16 +70,12 @@ connect.query(
 function(error,res){
     if(error) throw err;
   
-
-
-
     for(var k = 0; k < res.length;k++){
       var stock = res[k].stock_quantity;
       var price = res[k].price;
 
      }
-
-   
+ 
      if (quantity > stock) {
         console.log("Sorry we do not have enough inventory to fufill your order");
         prompt();
@@ -86,12 +84,9 @@ function(error,res){
          updatedInventory = stock - quantity;
          var cost = price * quantity;
          console.log("Your order is being processed!");
-         console.log("Your total balance is: "+ cost);
-         updateInventory(id,updatedInventory);
-
-     
+         console.log("Your total balance is: $"+ cost);
+         updateInventory(id,updatedInventory);     
      }
-
 });
 
 }
@@ -111,7 +106,7 @@ connect.query(
 function(error,res){
     if(error) throw err;
   
-//selectAll();
+console.log("Product has been updated!");
   
 
   });
